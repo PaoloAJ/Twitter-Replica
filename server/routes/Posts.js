@@ -1,12 +1,17 @@
-const express = require('express')
-const router = express.Router()
-const { Posts } = require("../models")
+const express = require('express');
+const router = express.Router();
+const { Posts } = require("../models");
 
 router.get("/", async (req, res) => {
     const listOfPosts = await Posts.findAll()
     res.json(listOfPosts)
 })
 
+router.get('/byId/:id', async (req, res) => {
+    const id = req.params.id;
+    const post = await Posts.findByPk(id); // pk = primary key or ID in the sql database
+    res.json(post);
+})
 
 // Post things
 router.post("/", async (req, res) => {
