@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import './CreatePost.css';
-import * as Yup from 'yup';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import "./CreatePost.css";
+import * as Yup from "yup";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function CreatePost() {
   let navigate = useNavigate();
@@ -21,41 +21,41 @@ function CreatePost() {
 
   const onSubmit = (data) => {
     axios.post("http://localhost:3001/posts", data).then((response) => {
-      navigate("/")
+      navigate("/");
     });
   };
 
-  let history
+  let history;
 
   return (
     <div className="createPostPage">
-      <Formik 
+      <Formik
         initialValues={initialValues}
-        onSubmit={onSubmit} 
+        onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
         <Form className="formContainer">
           <label>Title: </label>
           <ErrorMessage name="title" component="span" />
-          <Field 
-            id="inputCreatePost" 
-            name="title" 
+          <Field
+            id="inputCreatePost"
+            name="title"
             placeholder="(Ex... Title)"
           />
-          
+
           <label>Post: </label>
           <ErrorMessage name="postText" component="span" />
-          <Field 
-            id="inputCreatePost" 
-            name="postText" 
+          <Field
+            id="inputCreatePost"
+            name="postText"
             placeholder="(Ex... Post)"
           />
-          
+
           <label>Username: </label>
           <ErrorMessage name="username" component="span" />
-          <Field 
-            id="inputCreatePost" 
-            name="username" 
+          <Field
+            id="inputCreatePost"
+            name="username"
             placeholder="(Ex... Paolo)"
           />
 
