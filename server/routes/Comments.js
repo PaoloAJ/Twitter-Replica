@@ -13,8 +13,12 @@ router.post("/", validateToken, async (req, res) => {
   const comment = req.body;
   const username = req.user.username;
   comment.username = username;
-  await Comments.create(comment);
-  res.json(comment);
+
+  // Creates the comment and acquires the created commewnt object
+  const createComment = await Comments.create(comment);
+
+  // Returns the created comment as the response
+  res.json(createComment);
 });
 
 router.delete("/:commentId", validateToken, async (req, res) => {

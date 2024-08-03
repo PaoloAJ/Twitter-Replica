@@ -19,7 +19,7 @@ function Post() {
     axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
       setComments(response.data);
     });
-  }, []);
+  }, [id]);
 
   const addComment = () => {
     axios
@@ -42,6 +42,7 @@ function Post() {
           const commentToAdd = {
             commentBody: newComment,
             username: response.data.username,
+            id: response.data.id,
           };
           setComments([...comments, commentToAdd]);
           setNewComment("");
@@ -87,8 +88,8 @@ function Post() {
           {comments.map((comment, key) => {
             return (
               <div key={key} className="comment">
-                {comment.commentBody}{" "}
-                <label>Username: {comment.username}</label>
+                <div className="commentUserName">{comment.username}</div>
+                <div className="commentBody">{comment.commentBody} </div>
                 {authState.username === comment.username && (
                   <button
                     onClick={() => {

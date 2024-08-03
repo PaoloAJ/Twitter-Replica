@@ -95,8 +95,38 @@ body {
 }
 
 .postPage .comment {
+  position: relative;
   background-color: #f9f9f9;
   padding: 10px;
   border-radius: 5px;
+  border: 2px solid lightgray;
+}
+
+.postPage .comment .commentUserName {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.postPage .comment .commentBody {
   border: 1px solid lightgray;
+  border-radius: 5px;
+}
+
+.postPage .comment button {
+  position: absolute;
+  font-size: 15px;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+  transition: font-size 0.3s, font-weight 0.3s;
+}
+
+.postPage .comment button:hover {
+  font-weight: bolder;
+  font-size: 20px;
 }
