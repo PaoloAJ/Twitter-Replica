@@ -8,22 +8,22 @@ import { AuthContext } from "../helpers/AuthContext";
 
 function CreatePost() {
   const { authState } = useContext(AuthContext);
-
   const navigate = useNavigate();
-  const initialValues = {
-    title: "",
-    postText: "",
-  };
 
   useEffect(() => {
     if (!authState.status) {
       navigate("/login");
     }
-  }, []);
+  }, [authState.status, navigate]);
+
+  const initialValues = {
+    title: "",
+    postText: "",
+  };
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("You must input a Title!"),
-    postText: Yup.string().required(),
+    postText: Yup.string().required("You must input Post text!"),
   });
 
   const onSubmit = (data) => {
@@ -31,7 +31,7 @@ function CreatePost() {
       .post("http://localhost:3001/posts", data, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
-      .then((response) => {
+      .then(() => {
         navigate("/");
       });
   };

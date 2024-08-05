@@ -1,12 +1,6 @@
 // App.js
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Link,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import CreatePost from "./pages/CreatePost";
 import Post from "./pages/Post";
@@ -45,13 +39,13 @@ function App() {
   }, []);
 
   const logout = () => {
+    localStorage.removeItem("accessToken");
     setAuthState({
       username: "",
       id: 0,
       status: false,
     });
-    localStorage.removeItem("accessToken");
-    window.location.href = "/login"; // Spent an hour trying to figure this out btw, didn't know you can do it manually
+    window.location.href = "/login";
   };
 
   return (
@@ -81,7 +75,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/createpost" element={<CreatePost />} />
             <Route path="/post/:id" element={<Post />} />
-            <Route path="/login/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>

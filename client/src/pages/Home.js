@@ -9,12 +9,10 @@ function Home() {
   const [listOfPosts, setListOfPosts] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
   const { authState } = useContext(AuthContext);
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!localStorage.getItem("accessToken")) {
-      // previously it was !authState.status, but due to delayed updates, this local approach works better
-      // Denies user access to home page if not logged in
       navigate("/login");
     } else {
       axios
