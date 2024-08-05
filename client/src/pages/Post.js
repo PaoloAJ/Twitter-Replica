@@ -9,6 +9,7 @@ function Post() {
   const [postObject, setPostObject] = useState({});
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const [lightboxImage, setLightboxImage] = useState(""); // State for lightbox
   const { authState } = useContext(AuthContext);
   let navigate = useNavigate();
 
@@ -59,25 +60,28 @@ function Post() {
       .then(() => {
         setComments(
           comments.filter((val) => {
-            return val.id != id;
+            return val.id !== id;
           })
         );
       });
   };
 
   const deletePost = (id) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this post?"
-    );
-    if (confirmed) {
-      axios
-        .delete(`http://localhost:3001/posts/${id}`, {
-          headers: { accessToken: localStorage.getItem("accessToken") },
-        })
-        .then(() => {
-          navigate("/");
-        });
-    }
+    axios
+      .delete(`http://localhost:3001/posts/${id}`, {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then(() => {
+        navigate("/");
+      });
+  };
+
+  const openLightbox = (imageUrl) => {
+    setLightboxImage(imageUrl);
+  };
+
+  const closeLightbox = () => {
+    setLightboxImage("");
   };
 
   return (
@@ -131,6 +135,28 @@ function Post() {
           })}
         </div>
       </div>
+
+      {/* Lightbox */}
+      {lightboxImage && (
+        <div className="lightbox" onClick={closeLightbox}>
+          <span className="lightbox-close" onClick={closeLightbox}>
+            &times;
+          </span>
+          <img src={lightboxImage} alt="Lightbox" />
+        </div>
+      )}
+
+      {/* Thumbnail images or post images that open lightbox */}
+      {postObject.images &&
+        postObject.images.map((image, index) => (
+          <img
+            key={index}
+            src={image.thumbnail}
+            alt={`Thumbnail ${index}`}
+            className="lightbox-trigger"
+            onClick={() => openLightbox(image.large)}
+          />
+        ))}
     </div>
   );
 }

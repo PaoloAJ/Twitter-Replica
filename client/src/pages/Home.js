@@ -65,6 +65,7 @@ function Home() {
         }
       });
   };
+
   // alllows the enlargment of the post through hovering the body
   useEffect(() => {
     const posts = document.querySelectorAll(".post");
