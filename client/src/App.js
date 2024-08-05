@@ -1,6 +1,12 @@
 // App.js
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import Home from "./pages/Home";
 import CreatePost from "./pages/CreatePost";
 import Post from "./pages/Post";
@@ -39,12 +45,13 @@ function App() {
   }, []);
 
   const logout = () => {
-    localStorage.removeItem("accessToken");
     setAuthState({
       username: "",
       id: 0,
       status: false,
     });
+    localStorage.removeItem("accessToken");
+    window.location.href = "/login"; // Spent an hour trying to figure this out btw, didn't know you can do it manually
   };
 
   return (
@@ -53,12 +60,15 @@ function App() {
         <Router>
           <div className="navbar">
             <div className="links">
-              <Link to="/"> Home Page </Link>
-              <Link to="/createpost"> Create A Post </Link>
-              {!authState.status && (
+              {!authState.status ? (
                 <>
                   <Link to="/login"> Login </Link>
                   <Link to="/registration"> Registration </Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/"> Home Page </Link>
+                  <Link to="/createpost"> Create A Post </Link>
                 </>
               )}
             </div>
