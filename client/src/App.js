@@ -10,6 +10,7 @@ import PageNotFound from "./pages/PageNotFound";
 import { AuthContext } from "./helpers/AuthContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Profile from "./pages/Profile";
 
 function App() {
   const [authState, setAuthState] = useState({
@@ -20,7 +21,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/auth/verify", {
+      .get("http://localhost:3001/users/verify", {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
@@ -77,6 +78,7 @@ function App() {
             <Route path="/post/:id" element={<Post />} />
             <Route path="/login" element={<Login />} />
             <Route path="/registration" element={<Registration />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Router>
