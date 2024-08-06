@@ -76,14 +76,6 @@ function Post() {
       });
   };
 
-  const openLightbox = (imageUrl) => {
-    setLightboxImage(imageUrl);
-  };
-
-  const closeLightbox = () => {
-    setLightboxImage("");
-  };
-
   return (
     <div className="postPage">
       <div className="top">
@@ -91,15 +83,20 @@ function Post() {
         <div className="postText">{postObject.postText}</div>
         <div className="footer">
           {postObject.username}
-          {authState.username === postObject.username && (
-            <button
-              onClick={() => {
-                deletePost(postObject.id);
-              }}
-            >
-              Delete Post
-            </button>
-          )}
+          <div className="deletePost" id="modal">
+            {authState.username === postObject.username && (
+              <button
+                onClick={() => {
+                  deletePost(postObject.id);
+                }}
+              >
+                Delete Post
+              </button>
+            )}
+            <div className="modal-body">
+              Are you sure you want to delete post?
+            </div>
+          </div>
         </div>
       </div>
       <div className="bottom">
