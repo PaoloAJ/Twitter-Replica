@@ -64,12 +64,35 @@ function Post() {
       });
   };
 
+  const deletePost = (id) => {
+    axios
+      .delete(`http://localhost:3001/post/${id}`, {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then(() => {
+        setPostObject(
+          comments.filter((val) => {
+            return val.id != id;
+          })
+        );
+      });
+  };
+
   return (
     <div className="postPage">
       <div className="top">
         <div className="title">{postObject.title}</div>
         <div className="postText">{postObject.postText}</div>
         <div className="footer">{postObject.username}</div>
+        {authState.username === post.username && (
+          <button
+            onClick={() => {
+              deletePost(postObject.id);
+            }}
+          >
+            X
+          </button>
+        )}
       </div>
       <div className="bottom">
         <div className="addCommentContainer">

@@ -1,5 +1,9 @@
 /* CSS code */
 
+html {
+  background-color: black;
+}
+
 .App {
   width: 100vw;
   height: auto;
