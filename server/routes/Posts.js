@@ -31,7 +31,8 @@ router.delete("/:postId", validateToken, async (req, res) => {
       id: postId,
     },
   });
-  res.json("deleted");
+
+  res.json("Deleted Successfully");
 });
 
 module.exports = router;
