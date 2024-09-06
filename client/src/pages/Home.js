@@ -8,8 +8,7 @@ import { AuthContext } from "../helpers/AuthContext";
 function Home() {
   const [listOfPosts, setListOfPosts] = useState([]);
   const [likedPosts, setLikedPosts] = useState([]);
-  const { authState } = useContext(AuthContext);
-  const navigate = useNavigate();
+  let navigate = useNavigate();
 
   useEffect(() => {
     if (!localStorage.getItem("accessToken")) {
