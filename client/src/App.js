@@ -64,7 +64,7 @@ function App() {
                 </>
               ) : (
                 <>
-                  <Link to="/"> Home Win Page </Link>
+                  <Link to="/"> Home Mac Page </Link>
                   <Link to="/createpost"> Create A Post </Link>
                 </>
               )}
