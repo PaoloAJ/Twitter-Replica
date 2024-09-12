@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { AuthContext } from "../helpers/AuthContext";
 import axios from "axios";
+import "./Profile.css";
 
 function Profile() {
   let { id } = useParams();
   let navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [listOfPosts, setListOfPosts] = useState([]);
+  const { authState } = useContext(AuthContext);
 
   useEffect(() => {
     axios
@@ -20,16 +23,57 @@ function Profile() {
     });
   }, []);
 
+  // alllows the enlargment of the post through hovering the body
+  useEffect(() => {
+    const posts = document.querySelectorAll(".post");
+
+    posts.forEach((post) => {
+      const body = post.querySelector(".body");
+
+      body.addEventListener("mouseover", () => {
+        post.classList.add("hovered");
+      });
+
+      body.addEventListener("mouseout", () => {
+        post.classList.remove("hovered");
+      });
+    });
+
+    // Cleanup event listeners on component unmount
+    return () => {
+      posts.forEach((post) => {
+        const body = post.querySelector(".body");
+
+        body.removeEventListener("mouseover", () => {
+          post.classList.add("hovered");
+        });
+
+        body.removeEventListener("mouseout", () => {
+          post.classList.remove("hovered");
+        });
+      });
+    };
+  }, [listOfPosts]);
+
   return (
     <div className="profilePageContainer">
       <div className="basicInfo">
-        <h1>Username: {username}</h1>
+        <h1>{username}'s Profile</h1>
+        {authState.username === username && (
+          <button
+            onClick={() => {
+              navigate("/changepassword");
+            }}
+          >
+            Change password
+          </button>
+        )}
       </div>
       <div className="listOfPosts">
         {listOfPosts.map((value, key) => {
           return (
             <div key={key} className="post">
-              <div className="title">{value.title}Test</div>
+              <div className="title">{value.title}</div>
               <div
                 className="body"
                 onClick={() => navigate(`/post/${value.id}`)}
@@ -39,7 +83,7 @@ function Profile() {
               <div className="footer">
                 <div className="username">{value.username}</div>
                 <div className="buttons">
-                  <label> {value.Likes.length}</label>
+                  <label>Likes: {value.Likes.length}</label>
                 </div>
               </div>
             </div>

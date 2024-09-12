@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import { AuthContext } from "../helpers/AuthContext";
+import "./Home.css";
 
 function Home() {
   const [listOfPosts, setListOfPosts] = useState([]);
@@ -107,7 +107,11 @@ function Home() {
               {value.postText}
             </div>
             <div className="footer">
-              {value.username}
+              <div className="username">
+                <Link to={`/profile/${value.UserId}`} className="profile-link">
+                  {value.username}
+                </Link>
+              </div>
               <div className="buttons">
                 <ThumbUpAltIcon
                   onClick={() => {

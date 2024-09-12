@@ -75,11 +75,57 @@ function Post() {
       });
   };
 
+  const editPost = (option) => {
+    if (option === "title") {
+      let newTitle = prompt("Enter New Title:");
+      axios.put(
+        "http://localhost:3001/posts/title",
+        {
+          newTitle: newTitle,
+          id: id,
+        },
+        {
+          headers: { accessToken: localStorage.getItem("accessToken") },
+        }
+      );
+
+      setPostObject({ ...postObject, title: newTitle });
+    } else {
+      let newPostText = prompt("Enter New Title:");
+      axios.put(
+        "http://localhost:3001/posts/postText",
+        {
+          newText: newPostText,
+          id: id,
+        },
+        {
+          headers: { accessToken: localStorage.getItem("accessToken") },
+        }
+      );
+      setPostObject({ ...postObject, text: newPostText });
+    }
+  };
+
   return (
     <div className="postPage">
       <div className="top">
-        <div className="title">{postObject.title}</div>
-        <div className="postText">{postObject.postText}</div>
+        <div
+          className="title"
+          onClick={() => {
+            if (authState.username === postObject.username) editPost("title");
+          }}
+        >
+          {postObject.title}
+        </div>
+        <div
+          className="postText"
+          onClick={() => {
+            if (authState.username === postObject.username)
+              editPost("postText");
+          }}
+        >
+          {postObject.postText}
+        </div>
         <div className="footer">
           {postObject.username}
           {authState.username === postObject.username && (

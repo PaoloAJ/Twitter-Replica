@@ -1,0 +1,10 @@
+.profile-link {
+  text-decoration: none;
+  color: black;
+  transition: font-size 0.2s;
+}
+
+.profile-link:hover {
+  color: white;
+  font-size: 25px;
+}
