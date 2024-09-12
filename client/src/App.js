@@ -59,7 +59,7 @@ function App() {
             <div className="links">
               {!authState.status ? (
                 <>
-                  <Link to="/login"> Login </Link>
+                  <Link to="/login"> Login Nice </Link>
                   <Link to="/registration"> Registration </Link>
                 </>
               ) : (
